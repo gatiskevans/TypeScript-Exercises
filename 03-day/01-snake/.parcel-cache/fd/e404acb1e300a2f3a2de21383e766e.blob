@@ -1,0 +1,11 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Cell", function () {
+  return Cell;
+});
+class Cell {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}

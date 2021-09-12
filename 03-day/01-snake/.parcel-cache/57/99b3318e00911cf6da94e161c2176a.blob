@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐍 Snake 🐍 | CODELEX</title>
+    <link rel="stylesheet" href="e1adfaf707ac839d57c1d3141262c886">
+</head>
+
+<body>
+    <div id="game" class="container">
+    </div>
+    <script src="bab45697ce89e07d335d40c9e64e72ba"></script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Cell", function () {
+  return Cell;
+});
+_parcelHelpers.export(exports, "Minesweeper", function () {
+  return Minesweeper;
+});
+class Cell {
+  isOpen = false;
+  mines = 0;
+  isBomb = false;
+  isFlag = false;
+  isUnsure = false;
+}
+class Minesweeper {
+  constructor(level) {
+    this.level = level;
+  }
+  columnsCount() {
+    return 10;
+  }
+  getCells() {
+    return [[new Cell(), new Cell(), new Cell()], [new Cell(), new Cell(), new Cell()], [new Cell(), new Cell(), new Cell()]];
+  }
+  onLeftMouseDown(x, y) {}
+  onLeftMouseUp(x, y) {}
+  onRightMouseUp(x, y) {}
+  isTense() {
+    return true;
+  }
+  timePassed() {
+    return 999;
+  }
+  minesLeftCount() {
+    return 999;
+  }
+  reset() {}
+  currentLevel() {
+    return this.level;
+  }
+  selectLevel(level) {}
+  isLost() {
+    return false;
+  }
+  isWon() {
+    return false;
+  }
+  isQuestionMarksEnabled() {
+    return false;
+  }
+  toggleQuestionMarksEnabled() {}
+}

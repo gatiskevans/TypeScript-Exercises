@@ -1,0 +1,28 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Snake", function () {
+  return Snake;
+});
+var _Cell = require("./Cell");
+class Snake {
+  head = new _Cell.Cell(2, 0);
+  tail = [new _Cell.Cell(0, 0), new _Cell.Cell(1, 0)];
+  setDirection(direction) {}
+  move() {
+    this.head.x++;
+    this.tail.filter(body => body.x++);
+  }
+  grow() {}
+  getHead() {
+    return this.head;
+  }
+  isSnake(cell) {
+    return false;
+  }
+  getDirection() {
+    return "Right";
+  }
+  getTail() {
+    return this.tail;
+  }
+}

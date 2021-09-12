@@ -1,0 +1,18 @@
+/**
+ * Write a function that returns true if the given string ends with a question mark, false if not.
+ * 
+ * Example
+ * 
+ * Input: "French fries?"
+ * Output: true
+ */
+
+function isQuestion(input: string): boolean {
+    if(input.charAt(input.length-1) === "?"){
+        return true;
+    } else {
+        return false;
+    }
+ }
+
+export { isQuestion };

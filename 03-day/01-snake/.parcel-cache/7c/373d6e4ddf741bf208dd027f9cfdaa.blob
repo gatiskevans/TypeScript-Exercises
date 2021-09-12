@@ -1,0 +1,847 @@
+// modules are defined as an array
+// [ module function, map of requires ]
+//
+// map of requires is short require name -> numeric require
+//
+// anything defined in a previous bundle is accessed via the
+// orig method which is the require for previous bundles
+
+(function(modules, entry, mainEntry, parcelRequireName, globalName) {
+  /* eslint-disable no-undef */
+  var globalObject =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : typeof global !== 'undefined'
+      ? global
+      : {};
+  /* eslint-enable no-undef */
+
+  // Save the require from previous bundle to this closure if any
+  var previousRequire =
+    typeof globalObject[parcelRequireName] === 'function' &&
+    globalObject[parcelRequireName];
+
+  var cache = previousRequire.cache || {};
+  // Do not use `require` to prevent Webpack from trying to bundle this call
+  var nodeRequire =
+    typeof module !== 'undefined' &&
+    typeof module.require === 'function' &&
+    module.require.bind(module);
+
+  function newRequire(name, jumped) {
+    if (!cache[name]) {
+      if (!modules[name]) {
+        // if we cannot find the module within our internal map or
+        // cache jump to the current global require ie. the last bundle
+        // that was added to the page.
+        var currentRequire =
+          typeof globalObject[parcelRequireName] === 'function' &&
+          globalObject[parcelRequireName];
+        if (!jumped && currentRequire) {
+          return currentRequire(name, true);
+        }
+
+        // If there are other bundles on this page the require from the
+        // previous one is saved to 'previousRequire'. Repeat this as
+        // many times as there are bundles until the module is found or
+        // we exhaust the require chain.
+        if (previousRequire) {
+          return previousRequire(name, true);
+        }
+
+        // Try the node require function if it exists.
+        if (nodeRequire && typeof name === 'string') {
+          return nodeRequire(name);
+        }
+
+        var err = new Error("Cannot find module '" + name + "'");
+        err.code = 'MODULE_NOT_FOUND';
+        throw err;
+      }
+
+      localRequire.resolve = resolve;
+      localRequire.cache = {};
+
+      var module = (cache[name] = new newRequire.Module(name));
+
+      modules[name][0].call(
+        module.exports,
+        localRequire,
+        module,
+        module.exports,
+        this
+      );
+    }
+
+    return cache[name].exports;
+
+    function localRequire(x) {
+      return newRequire(localRequire.resolve(x));
+    }
+
+    function resolve(x) {
+      return modules[name][1][x] || x;
+    }
+  }
+
+  function Module(moduleName) {
+    this.id = moduleName;
+    this.bundle = newRequire;
+    this.exports = {};
+  }
+
+  newRequire.isParcelRequire = true;
+  newRequire.Module = Module;
+  newRequire.modules = modules;
+  newRequire.cache = cache;
+  newRequire.parent = previousRequire;
+  newRequire.register = function(id, exports) {
+    modules[id] = [
+      function(require, module) {
+        module.exports = exports;
+      },
+      {},
+    ];
+  };
+
+  Object.defineProperty(newRequire, 'root', {
+    get: function() {
+      return globalObject[parcelRequireName];
+    },
+  });
+
+  globalObject[parcelRequireName] = newRequire;
+
+  for (var i = 0; i < entry.length; i++) {
+    newRequire(entry[i]);
+  }
+
+  if (mainEntry) {
+    // Expose entry point to Node, AMD or browser globals
+    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
+    var mainExports = newRequire(mainEntry);
+
+    // CommonJS
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+      module.exports = mainExports;
+
+      // RequireJS
+    } else if (typeof define === 'function' && define.amd) {
+      define(function() {
+        return mainExports;
+      });
+
+      // <script>
+    } else if (globalName) {
+      this[globalName] = mainExports;
+    }
+  }
+})({"4E708":[function(require,module,exports) {
+var HMR_HOST = null;
+var HMR_PORT = 1234;
+var HMR_SECURE = false;
+var HMR_ENV_HASH = "d751713988987e9331980363e24189ce";
+module.bundle.HMR_BUNDLE_ID = "bab71e5df5cc31c36ee157a3c27e9023";
+// @flow
+/*global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE*/
+/*::
+import type {
+HMRAsset,
+HMRMessage,
+} from '@parcel/reporter-dev-server/src/HMRServer.js';
+interface ParcelRequire {
+(string): mixed;
+cache: {|[string]: ParcelModule|};
+hotData: mixed;
+Module: any;
+parent: ?ParcelRequire;
+isParcelRequire: true;
+modules: {|[string]: [Function, {|[string]: string|}]|};
+HMR_BUNDLE_ID: string;
+root: ParcelRequire;
+}
+interface ParcelModule {
+hot: {|
+data: mixed,
+accept(cb: (Function) => void): void,
+dispose(cb: (mixed) => void): void,
+// accept(deps: Array<string> | string, cb: (Function) => void): void,
+// decline(): void,
+_acceptCallbacks: Array<(Function) => void>,
+_disposeCallbacks: Array<(mixed) => void>,
+|};
+}
+declare var module: {bundle: ParcelRequire, ...};
+declare var HMR_HOST: string;
+declare var HMR_PORT: string;
+declare var HMR_ENV_HASH: string;
+declare var HMR_SECURE: boolean;
+*/
+var OVERLAY_ID = '__parcel__error__overlay__';
+var OldModule = module.bundle.Module;
+function Module(moduleName) {
+  OldModule.call(this, moduleName);
+  this.hot = {
+    data: module.bundle.hotData,
+    _acceptCallbacks: [],
+    _disposeCallbacks: [],
+    accept: function (fn) {
+      this._acceptCallbacks.push(fn || (function () {}));
+    },
+    dispose: function (fn) {
+      this._disposeCallbacks.push(fn);
+    }
+  };
+  module.bundle.hotData = undefined;
+}
+module.bundle.Module = Module;
+var checkedAssets, /*: {|[string]: boolean|}*/
+acceptedAssets, /*: {|[string]: boolean|}*/
+/*: {|[string]: boolean|}*/
+assetsToAccept;
+function getHostname() {
+  return HMR_HOST || (location.protocol.indexOf('http') === 0 ? location.hostname : 'localhost');
+}
+function getPort() {
+  return HMR_PORT || location.port;
+}
+// eslint-disable-next-line no-redeclare
+var parent = module.bundle.parent;
+if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
+  var hostname = getHostname();
+  var port = getPort();
+  var protocol = HMR_SECURE || location.protocol == 'https:' && !(/localhost|127.0.0.1|0.0.0.0/).test(hostname) ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + (port ? ':' + port : '') + '/');
+  // $FlowFixMe
+  ws.onmessage = function (event) /*: {data: string, ...}*/
+  {
+    checkedAssets = {
+      /*: {|[string]: boolean|}*/
+    };
+    acceptedAssets = {
+      /*: {|[string]: boolean|}*/
+    };
+    assetsToAccept = [];
+    var data = /*: HMRMessage*/
+    JSON.parse(event.data);
+    if (data.type === 'update') {
+      // Remove error overlay if there is one
+      removeErrorOverlay();
+      let assets = data.assets.filter(asset => asset.envHash === HMR_ENV_HASH);
+      // Handle HMR Update
+      var handled = false;
+      assets.forEach(asset => {
+        var didAccept = asset.type === 'css' || asset.type === 'js' && hmrAcceptCheck(module.bundle.root, asset.id, asset.depsByBundle);
+        if (didAccept) {
+          handled = true;
+        }
+      });
+      if (handled) {
+        console.clear();
+        assets.forEach(function (asset) {
+          hmrApply(module.bundle.root, asset);
+        });
+        for (var i = 0; i < assetsToAccept.length; i++) {
+          var id = assetsToAccept[i][1];
+          if (!acceptedAssets[id]) {
+            hmrAcceptRun(assetsToAccept[i][0], id);
+          }
+        }
+      } else {
+        window.location.reload();
+      }
+    }
+    if (data.type === 'error') {
+      // Log parcel errors to console
+      for (let ansiDiagnostic of data.diagnostics.ansi) {
+        let stack = ansiDiagnostic.codeframe ? ansiDiagnostic.codeframe : ansiDiagnostic.stack;
+        console.error('🚨 [parcel]: ' + ansiDiagnostic.message + '\n' + stack + '\n\n' + ansiDiagnostic.hints.join('\n'));
+      }
+      // Render the fancy html overlay
+      removeErrorOverlay();
+      var overlay = createErrorOverlay(data.diagnostics.html);
+      // $FlowFixMe
+      document.body.appendChild(overlay);
+    }
+  };
+  ws.onerror = function (e) {
+    console.error(e.message);
+  };
+  ws.onclose = function (e) {
+    if (undefined !== 'test') {
+      console.warn('[parcel] 🚨 Connection to the HMR server was lost');
+    }
+  };
+}
+function removeErrorOverlay() {
+  var overlay = document.getElementById(OVERLAY_ID);
+  if (overlay) {
+    overlay.remove();
+    console.log('[parcel] ✨ Error resolved');
+  }
+}
+function createErrorOverlay(diagnostics) {
+  var overlay = document.createElement('div');
+  overlay.id = OVERLAY_ID;
+  let errorHTML = '<div style="background: black; opacity: 0.85; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; font-family: Menlo, Consolas, monospace; z-index: 9999;">';
+  for (let diagnostic of diagnostics) {
+    let stack = diagnostic.codeframe ? diagnostic.codeframe : diagnostic.stack;
+    errorHTML += `
+      <div>
+        <div style="font-size: 18px; font-weight: bold; margin-top: 20px;">
+          🚨 ${diagnostic.message}
+        </div>
+        <pre>
+          ${stack}
+        </pre>
+        <div>
+          ${diagnostic.hints.map(hint => '<div>' + hint + '</div>').join('')}
+        </div>
+      </div>
+    `;
+  }
+  errorHTML += '</div>';
+  overlay.innerHTML = errorHTML;
+  return overlay;
+}
+function getParents(bundle, id) /*: Array<[ParcelRequire, string]>*/
+{
+  var modules = bundle.modules;
+  if (!modules) {
+    return [];
+  }
+  var parents = [];
+  var k, d, dep;
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
+      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
+        parents.push([bundle, k]);
+      }
+    }
+  }
+  if (bundle.parent) {
+    parents = parents.concat(getParents(bundle.parent, id));
+  }
+  return parents;
+}
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    if (link.parentNode !== null) {
+      // $FlowFixMe
+      link.parentNode.removeChild(link);
+    }
+  };
+  newLink.setAttribute('href', // $FlowFixMe
+  link.getAttribute('href').split('?')[0] + '?' + Date.now());
+  // $FlowFixMe
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      // $FlowFixMe[incompatible-type]
+      var href = /*: string*/
+      links[i].getAttribute('href');
+      var hostname = getHostname();
+      var servedFromHMRServer = hostname === 'localhost' ? new RegExp('^(https?:\\/\\/(0.0.0.0|127.0.0.1)|localhost):' + getPort()).test(href) : href.indexOf(hostname + ':' + getPort());
+      var absolute = (/^https?:\/\//i).test(href) && href.indexOf(window.location.origin) !== 0 && !servedFromHMRServer;
+      if (!absolute) {
+        updateLink(links[i]);
+      }
+    }
+    cssTimeout = null;
+  }, 50);
+}
+function hmrApply(bundle, /*: ParcelRequire*/
+asset) /*:  HMRAsset*/
+{
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+  if (asset.type === 'css') {
+    reloadCSS();
+    return;
+  }
+  let deps = asset.depsByBundle[bundle.HMR_BUNDLE_ID];
+  if (deps) {
+    var fn = new Function('require', 'module', 'exports', asset.output);
+    modules[asset.id] = [fn, deps];
+  } else if (bundle.parent) {
+    hmrApply(bundle.parent, asset);
+  }
+}
+function hmrAcceptCheck(bundle, /*: ParcelRequire*/
+id, /*: ParcelRequire*/
+/*: string*/
+depsByBundle) /*: ?{ [string]: { [string]: string } }*/
+{
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+  if (depsByBundle && !depsByBundle[bundle.HMR_BUNDLE_ID]) {
+    // If we reached the root bundle without finding where the asset should go,
+    // there's nothing to do. Mark as "accepted" so we don't reload the page.
+    if (!bundle.parent) {
+      return true;
+    }
+    return hmrAcceptCheck(bundle.parent, id, depsByBundle);
+  }
+  if (checkedAssets[id]) {
+    return;
+  }
+  checkedAssets[id] = true;
+  var cached = bundle.cache[id];
+  assetsToAccept.push([bundle, id]);
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    return true;
+  }
+  return getParents(module.bundle.root, id).some(function (v) {
+    return hmrAcceptCheck(v[0], v[1], null);
+  });
+}
+function hmrAcceptRun(bundle, /*: ParcelRequire*/
+id) /*: string*/
+{
+  var cached = bundle.cache[id];
+  bundle.hotData = {};
+  if (cached && cached.hot) {
+    cached.hot.data = bundle.hotData;
+  }
+  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+    cached.hot._disposeCallbacks.forEach(function (cb) {
+      cb(bundle.hotData);
+    });
+  }
+  delete bundle.cache[id];
+  bundle(id);
+  cached = bundle.cache[id];
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    cached.hot._acceptCallbacks.forEach(function (cb) {
+      var assetsToAlsoAccept = cb(function () {
+        return getParents(module.bundle.root, id);
+      });
+      if (assetsToAlsoAccept && assetsToAccept.length) {
+        assetsToAccept.push.apply(assetsToAccept, assetsToAlsoAccept);
+      }
+    });
+  }
+  acceptedAssets[id] = true;
+}
+
+},{}],"1GQry":[function(require,module,exports) {
+var _engineConfiguration = require("./engine/Configuration");
+var _engineGame = require("./engine/Game");
+const CELL_SIZE = 20;
+const SCALE = 2.0;
+class GameUI {
+  constructor(canvas, game) {
+    this.canvas = canvas;
+    this.game = game;
+    requestAnimationFrame(this.draw.bind(this));
+    window.addEventListener("keydown", this.onKeyDown.bind(this), false);
+    window.focus();
+  }
+  draw(time) {
+    const context = this.canvas.getContext("2d");
+    if (this.game.shouldUpdate(time)) {
+      this.drawBackground(context);
+      this.drawGrid(context);
+      this.drawBrand(context);
+      this.drawScore(context);
+      this.drawSnake(context);
+      this.drawApples(context);
+      this.game.update(time);
+    }
+    requestAnimationFrame(this.draw.bind(this));
+  }
+  drawBackground(context) {
+    const {width, height} = this.game.getConfiguration();
+    context.fillStyle = "#4caf50";
+    context.fillRect(0, 0, width, height);
+  }
+  drawBrand(context) {
+    const {width, height} = this.game.getConfiguration();
+    context.font = height / 2.5 + "px Roboto";
+    context.textBaseline = "middle";
+    context.textAlign = "center";
+    context.fillStyle = "rgba(255,255,255,0.75)";
+    context.fillText("CODELEX", width / 2, height / 2);
+  }
+  drawScore(context) {
+    context.font = 35 * SCALE + "px Arial";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillStyle = "rgba(255,255,255,0.75)";
+    context.fillText(game.getScore().toString(), 10 * SCALE, 10 * SCALE);
+  }
+  drawGrid(context) {
+    const game = this.game;
+    const {width, height, cellWidth, cellHeight} = game.getConfiguration();
+    const lineWidth = 1 * SCALE;
+    context.strokeStyle = "rgba(255,255,255,0.95)";
+    context.lineWidth = lineWidth;
+    for (let x = 0; x <= width; x += cellWidth) {
+      context.beginPath();
+      context.moveTo(x, 0);
+      context.lineTo(x, height);
+      context.stroke();
+    }
+    for (let y = 0; y <= height; y += cellHeight) {
+      context.beginPath();
+      context.moveTo(0, y);
+      context.lineTo(width, y);
+      context.stroke();
+    }
+  }
+  drawApples(context) {
+    const {cellWidth, cellHeight} = game.getConfiguration();
+    const lineWidth = 1 * SCALE;
+    context.fillStyle = "#e91e63";
+    const apples = game.getGrid().getApples();
+    apples.forEach(cell => context.fillRect(cellWidth * cell.x + lineWidth, cellHeight * cell.y + lineWidth, cellWidth - lineWidth * 2, cellHeight - lineWidth * 2));
+  }
+  drawSnake(context) {
+    const snake = this.game.getSnake();
+    const {cellWidth, cellHeight} = this.game.getConfiguration();
+    // head
+    const size = CELL_SIZE * SCALE / 10;
+    const offset = CELL_SIZE * SCALE / 3;
+    const x = cellWidth * snake.getHead().x;
+    const y = cellHeight * snake.getHead().y;
+    context.fillStyle = "#111111";
+    context.fillRect(x, y, cellWidth, cellHeight);
+    // eyes
+    switch (snake.getDirection()) {
+      case "Up":
+        context.beginPath();
+        context.arc(x + offset, y + offset, size, 0, 2 * Math.PI, false);
+        context.arc(x + 2 * offset, y + offset, size, 0, 2 * Math.PI, false);
+        context.fillStyle = "white";
+        context.fill();
+        break;
+      case "Down":
+        context.beginPath();
+        context.arc(x + offset, y + 2 * offset, size, 0, 2 * Math.PI, false);
+        context.arc(x + 2 * offset, y + 2 * offset, size, 0, 2 * Math.PI, false);
+        context.fillStyle = "white";
+        context.fill();
+        break;
+      case "Right":
+        context.beginPath();
+        context.arc(x + 2 * offset, y + offset, size, 0, 2 * Math.PI, false);
+        context.arc(x + 2 * offset, y + 2 * offset, size, 0, 2 * Math.PI, false);
+        context.fillStyle = "white";
+        context.fill();
+        break;
+      case "Left":
+        context.beginPath();
+        context.arc(x + offset, y + offset, size, 0, 2 * Math.PI, false);
+        context.arc(x + offset, y + 2 * offset, size, 0, 2 * Math.PI, false);
+        context.fillStyle = "white";
+        context.fill();
+        break;
+    }
+    // tail
+    context.fillStyle = "#333333";
+    const tail = snake.getTail();
+    tail.forEach(cell => context.fillRect(cellWidth * cell.x, cellHeight * cell.y, cellWidth, cellHeight));
+  }
+  onKeyDown(event) {
+    const snake = this.game.getSnake();
+    switch (event.key) {
+      case "ArrowUp":
+        event.preventDefault();
+        snake.setDirection("Up");
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        snake.setDirection("Down");
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        snake.setDirection("Left");
+        break;
+      case "ArrowRight":
+        event.preventDefault();
+        snake.setDirection("Right");
+        break;
+    }
+  }
+}
+const createCanvas = () => {
+  const container = document.getElementById("game");
+  const canvas = document.createElement("Canvas");
+  container.appendChild(canvas);
+  // canvas element size in the page
+  canvas.style.width = _engineConfiguration.CELLS_HORIZONTAL * CELL_SIZE + "px";
+  canvas.style.height = _engineConfiguration.CELLS_VERTICAL * CELL_SIZE + "px";
+  // image buffer size
+  canvas.width = _engineConfiguration.CELLS_HORIZONTAL * CELL_SIZE * SCALE;
+  canvas.height = _engineConfiguration.CELLS_VERTICAL * CELL_SIZE * SCALE;
+  return canvas;
+};
+const createConfiguration = canvas => {
+  return {
+    level: 0,
+    speed: _engineConfiguration.SPEED,
+    width: canvas.width,
+    height: canvas.height,
+    nbCellsX: _engineConfiguration.CELLS_HORIZONTAL,
+    nbCellsY: _engineConfiguration.CELLS_VERTICAL,
+    cellWidth: canvas.width / _engineConfiguration.CELLS_HORIZONTAL,
+    cellHeight: canvas.height / _engineConfiguration.CELLS_VERTICAL,
+    apples: 5
+  };
+};
+const canvas = createCanvas();
+const configuration = createConfiguration(canvas);
+const game = new _engineGame.Game(configuration);
+new GameUI(canvas, game);
+
+},{"./engine/Configuration":"JZ2oz","./engine/Game":"6DuHH"}],"JZ2oz":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "CELLS_HORIZONTAL", function () {
+  return CELLS_HORIZONTAL;
+});
+_parcelHelpers.export(exports, "CELLS_VERTICAL", function () {
+  return CELLS_VERTICAL;
+});
+_parcelHelpers.export(exports, "SPEED", function () {
+  return SPEED;
+});
+_parcelHelpers.export(exports, "MAX_LEVEL", function () {
+  return MAX_LEVEL;
+});
+const CELLS_HORIZONTAL = 80;
+const CELLS_VERTICAL = 40;
+const SPEED = 100;
+const MAX_LEVEL = 10;
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"6Pji8"}],"6Pji8":[function(require,module,exports) {
+"use strict";
+
+exports.interopDefault = function (a) {
+  return a && a.__esModule ? a : {
+    default: a
+  };
+};
+
+exports.defineInteropFlag = function (a) {
+  Object.defineProperty(a, '__esModule', {
+    value: true
+  });
+};
+
+exports.exportAll = function (source, dest) {
+  Object.keys(source).forEach(function (key) {
+    if (key === 'default' || key === '__esModule') {
+      return;
+    } // Skip duplicate re-exports when they have the same value.
+
+
+    if (key in dest && dest[key] === source[key]) {
+      return;
+    }
+
+    Object.defineProperty(dest, key, {
+      enumerable: true,
+      get: function () {
+        return source[key];
+      }
+    });
+  });
+  return dest;
+};
+
+exports.export = function (dest, destName, get) {
+  Object.defineProperty(dest, destName, {
+    enumerable: true,
+    get: get
+  });
+};
+},{}],"6DuHH":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Game", function () {
+  return Game;
+});
+var _Grid = require("./Grid");
+var _Snake = require("./Snake");
+var _Configuration = require("./Configuration");
+class Game {
+  score = 0;
+  running = false;
+  constructor(configuration) {
+    this.configuration = configuration;
+    this.snake = new _Snake.Snake();
+    this.grid = new _Grid.Grid(this.configuration);
+    this.nextTick = 0;
+    this.running = true;
+  }
+  getSnake() {
+    return this.snake;
+  }
+  getConfiguration() {
+    return this.configuration;
+  }
+  shouldUpdate(time) {
+    return this.running && time >= this.nextTick;
+  }
+  update(time) {
+    this.nextTick = time + this.configuration.speed;
+    this.snake.move();
+    switch (this.checkState()) {
+      case -1:
+        this.die();
+        break;
+      case 1:
+        this.snake.grow();
+        this.score += 100;
+        this.grid.removeApple(this.snake.getHead());
+        if (this.grid.isDone()) {
+          this.levelUp();
+        }
+    }
+  }
+  checkState() {
+    const cell = this.snake.getHead();
+    // left the play area or ate itself??
+    if (this.isOutside(cell) || this.snake.isSnake(cell)) {
+      // dead
+      return -1;
+    }
+    // ate apple?
+    if (this.grid.isAppleInside(cell)) {
+      return 1;
+    }
+    // nothing special
+    return 0;
+  }
+  levelUp() {
+    this.score += 1000;
+    this.configuration.level++;
+    if (this.configuration.level < _Configuration.MAX_LEVEL) {
+      this.configuration.speed -= 7;
+      this.grid.seed();
+    } else {
+      this.win();
+    }
+  }
+  win() {
+    this.stop();
+  }
+  die() {
+    this.stop();
+  }
+  isOutside(cell) {
+    const {nbCellsX, nbCellsY} = this.configuration;
+    return cell.x < 0 || cell.x >= nbCellsX || cell.y < 0 || cell.y >= nbCellsY;
+  }
+  getScore() {
+    return this.score;
+  }
+  getGrid() {
+    return this.grid;
+  }
+  stop() {
+    this.running = false;
+  }
+}
+
+},{"./Grid":"1Xunp","./Snake":"vtHpI","./Configuration":"JZ2oz","@parcel/transformer-js/lib/esmodule-helpers.js":"6Pji8"}],"1Xunp":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Grid", function () {
+  return Grid;
+});
+var _Cell = require("./Cell");
+class Grid {
+  apple = [new _Cell.Cell(33, 22), new _Cell.Cell(35, 22), new _Cell.Cell(37, 22), new _Cell.Cell(39, 22), new _Cell.Cell(41, 22)];
+  constructor(configuration) {
+    this.configuration = configuration;
+  }
+  seed() {}
+  isAppleInside(cell) {
+    return false;
+  }
+  removeApple(cell) {}
+  isDone() {
+    return false;
+  }
+  getApples() {
+    return this.apples;
+  }
+}
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"6Pji8","./Cell":"5D5sy"}],"5D5sy":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Cell", function () {
+  return Cell;
+});
+class Cell {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"6Pji8"}],"vtHpI":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Snake", function () {
+  return Snake;
+});
+var _Cell = require("./Cell");
+class Snake {
+  head = new _Cell.Cell(2, 0);
+  tail = [new _Cell.Cell(0, 0), new _Cell.Cell(1, 0)];
+  direction = "Right";
+  setDirection(direction) {
+    this.direction = direction;
+  }
+  move() {
+    this.tail.shift();
+    this.tail.push(this.head);
+    if (this.direction === "Right") {
+      this.head = new _Cell.Cell(this.head.x + 1, this.head.y);
+    } else if (this.direction === "Down") {
+      this.head = new _Cell.Cell(this.head.x, this.head.y + 1);
+    } else if (this.direction === "Up") {
+      this.head = new _Cell.Cell(this.head.x, this.head.y - 1);
+    } else if (this.direction === "Left") {
+      this.head = new _Cell.Cell(this.head.x - 1, this.head.y);
+    }
+  }
+  grow() {}
+  getHead() {
+    return this.head;
+  }
+  isSnake(cell) {
+    return false;
+  }
+  getDirection() {
+    return this.direction;
+  }
+  getTail() {
+    return this.tail;
+  }
+}
+
+},{"./Cell":"5D5sy","@parcel/transformer-js/lib/esmodule-helpers.js":"6Pji8"}]},["4E708","1GQry"], "1GQry", "parcelRequire3a0e")
+
+//# sourceMappingURL=index.HASH_REF_bab71e5df5cc31c36ee157a3c27e9023.js.map

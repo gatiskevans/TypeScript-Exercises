@@ -1,0 +1,22 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Grid", function () {
+  return Grid;
+});
+var _Cell = require("./Cell");
+class Grid {
+  constructor(configuration) {
+    this.configuration = configuration;
+  }
+  seed() {}
+  isAppleInside(cell) {
+    return false;
+  }
+  removeApple(cell) {}
+  isDone() {
+    return false;
+  }
+  getApples() {
+    return [new _Cell.Cell(33, 22), new _Cell.Cell(35, 22), new _Cell.Cell(37, 22), new _Cell.Cell(39, 22)];
+  }
+}

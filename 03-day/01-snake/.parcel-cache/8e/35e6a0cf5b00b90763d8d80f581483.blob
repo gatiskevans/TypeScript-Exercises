@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+    user-select: none
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+/*# sourceMappingURL=index.HASH_REF_3cc404a50742b256579e04e228fa33d3.css.map */

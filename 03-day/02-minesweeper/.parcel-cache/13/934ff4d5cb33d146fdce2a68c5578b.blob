@@ -1,0 +1,21 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "LEVELS", function () {
+  return LEVELS;
+});
+const LEVELS = [{
+  title: "Beginner",
+  rows: 10,
+  columns: 10,
+  mines: 10
+}, {
+  title: "Intermediate",
+  rows: 25,
+  columns: 25,
+  mines: 25
+}, {
+  title: "Expert",
+  rows: 100,
+  columns: 100,
+  mines: 9999
+}];

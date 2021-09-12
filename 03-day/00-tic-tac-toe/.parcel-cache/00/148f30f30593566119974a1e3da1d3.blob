@@ -1,0 +1,27 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Game", function () {
+  return Game;
+});
+class Game {
+  cells = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
+  getCells() {
+    return this.cells;
+  }
+  getTurn() {
+    let countEmptyCells = this.cells.filter(cell => cell === "-").length;
+    return countEmptyCells;
+  }
+  getWinner() {
+    return "-";
+  }
+  isTie() {
+    return false;
+  }
+  onClick(i) {
+    this.cells[i] = "X";
+  }
+  restart() {
+    console.log("restart called");
+  }
+}

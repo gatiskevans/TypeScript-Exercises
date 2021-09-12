@@ -1,0 +1,87 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Game", function () {
+  return Game;
+});
+var _Grid = require("./Grid");
+var _Snake = require("./Snake");
+var _Configuration = require("./Configuration");
+class Game {
+  score = 0;
+  running = false;
+  constructor(configuration) {
+    this.configuration = configuration;
+    this.snake = new _Snake.Snake();
+    this.grid = new _Grid.Grid(this.configuration);
+    this.nextTick = 0;
+    this.running = true;
+  }
+  getSnake() {
+    return this.snake;
+  }
+  getConfiguration() {
+    return this.configuration;
+  }
+  shouldUpdate(time) {
+    return this.running && time >= this.nextTick;
+  }
+  update(time) {
+    this.nextTick = time + this.configuration.speed;
+    this.snake.move();
+    switch (this.checkState()) {
+      case -1:
+        this.die();
+        break;
+      case 1:
+        this.snake.grow();
+        this.score += 100;
+        this.grid.removeApple(this.snake.getHead());
+        if (this.grid.isDone()) {
+          this.levelUp();
+        }
+    }
+  }
+  checkState() {
+    const cell = this.snake.getHead();
+    // left the play area or ate itself??
+    if (this.isOutside(cell) || this.snake.isSnake(cell)) {
+      // dead
+      return -1;
+    }
+    // ate apple?
+    if (this.grid.isAppleInside(cell)) {
+      return 1;
+    }
+    // nothing special
+    return 0;
+  }
+  levelUp() {
+    this.score += 1000;
+    this.configuration.level++;
+    if (this.configuration.level < _Configuration.MAX_LEVEL) {
+      this.configuration.speed -= 7;
+      this.grid.seed();
+    } else {
+      this.win();
+    }
+  }
+  win() {
+    this.stop();
+  }
+  die() {
+    this.stop();
+  }
+  isOutside(cell) {
+    const {nbCellsX, nbCellsY} = this.configuration;
+    return cell.x < 0 || cell.x >= nbCellsX || cell.y < 0 || cell.y >= nbCellsY;
+  }
+  getScore() {
+    return this.score;
+  }
+  getGrid() {
+    return this.grid;
+  }
+  stop() {
+    this.running = false;
+  }
+}

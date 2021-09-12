@@ -1,0 +1,18 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "CELLS_HORIZONTAL", function () {
+  return CELLS_HORIZONTAL;
+});
+_parcelHelpers.export(exports, "CELLS_VERTICAL", function () {
+  return CELLS_VERTICAL;
+});
+_parcelHelpers.export(exports, "SPEED", function () {
+  return SPEED;
+});
+_parcelHelpers.export(exports, "MAX_LEVEL", function () {
+  return MAX_LEVEL;
+});
+const CELLS_HORIZONTAL = 80;
+const CELLS_VERTICAL = 40;
+const SPEED = 100;
+const MAX_LEVEL = 10;

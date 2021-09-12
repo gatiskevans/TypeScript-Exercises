@@ -1,0 +1,22 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Grid", function () {
+  return Grid;
+});
+class Grid {
+  apple = [];
+  constructor(configuration) {
+    this.configuration = configuration;
+  }
+  seed() {}
+  isAppleInside(cell) {
+    return false;
+  }
+  removeApple(cell) {}
+  isDone() {
+    return false;
+  }
+  getApples() {
+    return;
+  }
+}

@@ -1,0 +1,23 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "Grid", function () {
+  return Grid;
+});
+var _Cell = require("./Cell");
+class Grid {
+  apples = [new _Cell.Cell(33, 22), new _Cell.Cell(35, 22), new _Cell.Cell(37, 22), new _Cell.Cell(39, 22), new _Cell.Cell(41, 22)];
+  constructor(configuration) {
+    this.configuration = configuration;
+  }
+  seed() {}
+  isAppleInside(cell) {
+    return this.apples.find(apple => apple.x === cell.x && apple.y === cell.y) !== undefined;
+  }
+  removeApple(cell) {}
+  isDone() {
+    return false;
+  }
+  getApples() {
+    return this.apples.Math.floor(Math.random());
+  }
+}

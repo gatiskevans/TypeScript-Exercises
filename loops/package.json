@@ -1,0 +1,27 @@
+{
+  "name": "ts-console-app-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ts": "ts-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codelex-io/ts-console-app-template.git"
+  },
+  "author": "CODELEX",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codelex-io/ts-console-app-template/issues"
+  },
+  "homepage": "https://github.com/codelex-io/ts-console-app-template#readme",
+  "dependencies": {
+    "prompts": "^2.4.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.0.9"
+  }
+}
